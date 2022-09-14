@@ -32,11 +32,18 @@ async function startIpfs()
     }),
   };
 
+  const bootstrap = [];
+  // const bootstrap = [
+  //   '/ip4/5.51.172.39/tcp/4002/p2p/xxx',
+  //   '/ip4/5.51.172.39/tcp/4002/p2p/xxx',
+  //   '/ip4/5.51.172.39/tcp/4003/ws/p2p/xxx',
+  // ];
+
   ipfs = await createIpfs({
     libp2p: p2pOptions,
     repo: path.join(os.homedir(), '.testipfs'),
     config: {
-      Bootstrap: [],
+      Bootstrap: bootstrap,
     },
   });
 
