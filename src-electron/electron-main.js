@@ -1,5 +1,7 @@
 import { app, BrowserWindow, nativeTheme } from 'electron'
 import { toString as uint8ArrayToString } from 'uint8arrays/to-string';
+import { concat as uint8ArrayConcat } from 'uint8arrays/concat';
+import { CID } from 'multiformats/cid';
 import path from 'path'
 import os from 'os'
 
@@ -61,23 +63,37 @@ async function startIpfs()
     console.log( 'peer:disconnect', remotePeer.toString());
   });
 
-  await ipfs.pubsub.subscribe('mypubsub', (msg) => {
+  await ipfs.pubsub.subscribe('mypubsub', async (msg) => {
     console.log('got message : ', msg.from.toString(), uint8ArrayToString(msg.data));
+
+    const cid = CID.parse(uint8ArrayToString(msg.data));
+    const chunks = [];
+    for await (const chunk of ipfs.cat(cid)) {
+      chunks.push(chunk);
+    }
+    const content = uint8ArrayToString(uint8ArrayConcat(chunks));
+    console.log('got file : ', content);
+
   });
 
-  // 2 subscribe => 2 events...
+  // 2 subscribe => 2 events
   // await ipfs.pubsub.subscribe('mypubsub', (msg) => {
   //   console.log('got message : ', msg.from.toString(), uint8ArrayToString(msg.data));
   // });
 
-  let tosend = 0;
+  let nfile = 0;
   setInterval(async () => {
+    const content = myPeerId.toString()+' created ipfs file #' + nfile++;
+    const result = await ipfs.add(content);
+    console.log('save ipfs : ', result.cid);
+    const CID =  result.path;
+
     const peers = await ipfs.pubsub.peers('mypubsub');
     console.log('pubsub peers : %o', peers.length);
 
-    const msg = new TextEncoder().encode(tosend++);
+    const msg = new TextEncoder().encode(CID);
     await ipfs.pubsub.publish('mypubsub', msg);
-  },5000);
+  },10000);
 
   console.log(await ipfs.bootstrap.list());
 }
