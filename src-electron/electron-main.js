@@ -20,6 +20,7 @@ async function startIpfs()
 {
   const { createEd25519PeerId } = await import('@libp2p/peer-id-factory');
   const { PreSharedKeyConnectionProtector } = await import('libp2p/pnet');
+  const { GossipSub } = await import('@chainsafe/libp2p-gossipsub');
   const createIpfs = (await import('ipfs')).create;
 
   const myPeerId = await createEd25519PeerId();
@@ -29,6 +30,13 @@ async function startIpfs()
 
   const p2pOptions = {
     peerId: myPeerId,
+    pubsub: new GossipSub({
+      allowPublishToZeroPeers: true,
+      fallbackToFloodsub: true,
+      emitSelf: false,
+      maxInboundStreams: 64,
+      maxOutboundStreams: 128,
+    }),
     connectionProtector: new PreSharedKeyConnectionProtector({
       psk: new Uint8Array(Buffer.from(swarmKey, 'base64')),
     }),
@@ -83,7 +91,7 @@ async function startIpfs()
 
   let nfile = 0;
   setInterval(async () => {
-    const content = myPeerId.toString()+' created ipfs file #' + nfile++;
+    const content = myPeerId.toString()+' ipfs file #' + nfile++;
     const result = await ipfs.add(content);
     console.log('save ipfs : ', result.cid);
     const CID =  result.path;
