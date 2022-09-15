@@ -51,7 +51,7 @@ async function startIpfs()
 
   ipfs = await createIpfs({
     libp2p: p2pOptions,
-    repo: path.join(os.homedir(), '.testipfs'),
+    repo: path.join(os.homedir(), '.ipfs-'+myPeerId.toString()),
     config: {
       Bootstrap: bootstrap,
     },
