@@ -38,13 +38,13 @@ async function startIpfs()
   const privkeyM = "CAESQKaSEkS9k36q1M59NxlncioI4t6BLEqIs2E0fQwJZlXyXoP3JVfj9lz31CXPIUZKE7U2efgYW13yqeGvNWKmnKg=";
   const privkeyO = "CAESQPHWqKGMjLXlHyoYYEfdHznhYXwmxi2dUPcUCiM4pinDMzAc8OmstdPJ4DPqzdv/y3QFS9yI0SOFijO43J919gw=";
   
-  const bootstrap = [];
-  // const bootstrap = [
-  //   '/ip4/5.51.172.39/tcp/4002/p2p/xxx',
-  //   '/ip4/5.51.172.39/tcp/4002/p2p/xxx',
-  //   '/ip4/5.51.172.39/tcp/4003/ws/p2p/xxx',
-  // ];
-  
+  // const bootstrap = [];
+  const bootstrap = [
+    '/ip4/5.51.172.39/tcp/4002/p2p/12D3KooWDGBWhPTs1wjtDNeghXtA59CdGZXBvWGP4AnMj8ZphYbD',
+    '/ip4/5.51.172.39/tcp/4002/p2p/12D3KooWDGBWhPTs1wjtDNeghXtA59CdGZXBvWGP4AnMj8ZphYbD',
+    '/ip4/5.51.172.39/tcp/4003/ws/p2p/12D3KooWDGBWhPTs1wjtDNeghXtA59CdGZXBvWGP4AnMj8ZphYbD',
+  ];
+
   const privKey = Buffer.from(privkeyO, 'base64');
   const PK = await unmarshalPrivateKey(new Uint8Array(privKey));
   
