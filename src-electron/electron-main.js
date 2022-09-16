@@ -33,17 +33,17 @@ async function startIpfs()
   // console.log(dec);
   // const PK = await unmarshalPrivateKey(new Uint8Array(dec));
 
-  const privkeyC = "CAESQFtFT7hyKfs6YL0v9Yw+GzlvoGymxiQPb8MYGTMvWqykbmFnrir2XblTT5NnMS+FqFNHnOYCOgspxI/bmR9FCFY=";
-  const privkeyJ = "CAESQCinZzMaWWhwmbYfp1t6WRfG+xvoU98nMHwioM3wYVIqL8mPg7EOqjgkT+aITabiReIZo4lUyLo+kI0fWFDxIz4=";
-  const privkeyM = "CAESQKaSEkS9k36q1M59NxlncioI4t6BLEqIs2E0fQwJZlXyXoP3JVfj9lz31CXPIUZKE7U2efgYW13yqeGvNWKmnKg=";
-  const privkeyO = "CAESQPHWqKGMjLXlHyoYYEfdHznhYXwmxi2dUPcUCiM4pinDMzAc8OmstdPJ4DPqzdv/y3QFS9yI0SOFijO43J919gw=";
+  const privkeyC = "CAESQFtFT7hyKf...5NnMS+FqFNHnOYCOgspxI/bmR9FCFY=";
+  const privkeyJ = "CAESQCinZzMaWW...IqL8mbiReIZo4lUyLo+kI0fWFDxIz4=";
+  const privkeyM = "CAESQKaSEkS9k3...yXoP3JVfj9lz31CXPIUZKEvNWKmnKg=";
+  const privkeyO = "CAESQPHWqKGMjL...OmstdPJ4DPqzdv/y3QFS9yI03J919gw=";
   
-  // const bootstrap = [];
-  const bootstrap = [
-    '/ip4/5.51.172.39/tcp/4002/p2p/12D3KooWDGBWhPTs1wjtDNeghXtA59CdGZXBvWGP4AnMj8ZphYbD',
-    '/ip4/5.51.172.39/tcp/4002/p2p/12D3KooWDGBWhPTs1wjtDNeghXtA59CdGZXBvWGP4AnMj8ZphYbD',
-    '/ip4/5.51.172.39/tcp/4003/ws/p2p/12D3KooWDGBWhPTs1wjtDNeghXtA59CdGZXBvWGP4AnMj8ZphYbD',
-  ];
+  const bootstrap = [];
+  // const bootstrap = [
+  //   '/ip4xx.xx.xx.xx/tcp/4002/p2p/XXX',
+  //   '/ip4xx.xx.xx.xx/tcp/4002/p2p/XXX',
+  //   '/ip4xx.xx.xx.xx/tcp/4003/ws/p2p/XXX',
+  // ];
 
   const privKey = Buffer.from(privkeyO, 'base64');
   const PK = await unmarshalPrivateKey(new Uint8Array(privKey));
@@ -53,7 +53,7 @@ async function startIpfs()
   console.log('my peerId:',myPeerId.toString());
 
 
-  const swarmKey = 'L2tleS9zd2FybS9wc2svMS4wLjAvCi9iYXNlMTYvCjZkMDBmNjA3MDc2ZTE3NTM0NzZhMDk3MWQ3NDAzNmViZDU5YTI4NDQ4YjNkZGFmOTAwZTYzYjJhZDc4MjgzOGI';
+  const swarmKey = 'L2tleS9zd2Fy...Q3NDAzNmViZDU5YTI4NDQ4YjNkZGFmOTAwZTYzYjJhZDc4MjgzOGI';
 
   const p2pOptions = {
     peerId: myPeerId,
